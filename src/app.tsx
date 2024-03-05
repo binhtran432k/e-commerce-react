@@ -2,6 +2,8 @@ import { ReactNode, Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loading from "./components/loading/loading";
 
+const ROOT_PATH = import.meta.env.VITE_ROOT_PATH || "/";
+
 const Cart = lazy(() => import("./pages/cart"));
 const Checkout = lazy(() => import("./pages/checkout"));
 const Detail = lazy(() => import("./pages/detail"));
@@ -17,7 +19,7 @@ function wrapLoading(child: ReactNode) {
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		path: ROOT_PATH,
 		errorElement: wrapLoading(<NotFound />),
 		children: [
 			{ index: true, element: wrapLoading(<Home />) },
