@@ -30,6 +30,8 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build page
         run: bun run build
+      - name: Hack Browser Router for Github Page
+        run: cp ./dist/index.html ./dist/404.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
