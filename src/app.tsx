@@ -1,6 +1,6 @@
 import { ReactNode, Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Loading from "./components/loading/loading";
+import Loading from "./components/loading";
 
 const ROOT_PATH = import.meta.env.VITE_ROOT_PATH || "/";
 
