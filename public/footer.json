@@ -1,0 +1,67 @@
+{
+	"columns": [
+		{
+			"name": "Customer Services",
+			"items": [
+				{
+					"label": "Help & Contact US",
+					"url": "#"
+				},
+				{
+					"label": "Returns & Refunds",
+					"url": "#"
+				},
+				{
+					"label": "Online Stores",
+					"url": "#"
+				},
+				{
+					"label": "Terms & Conditions",
+					"url": "#"
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"items": [
+				{
+					"label": "What We Do",
+					"url": "#"
+				},
+				{
+					"label": "Available Services",
+					"url": "#"
+				},
+				{
+					"label": "Lastest Posts",
+					"url": "#"
+				},
+				{
+					"label": "FAQs",
+					"url": "#"
+				}
+			]
+		},
+		{
+			"name": "Social Media",
+			"items": [
+				{
+					"label": "Twitter",
+					"url": "#"
+				},
+				{
+					"label": "Instagram",
+					"url": "#"
+				},
+				{
+					"label": "Facebook",
+					"url": "#"
+				},
+				{
+					"label": "Pinterest",
+					"url": "#"
+				}
+			]
+		}
+	]
+}
