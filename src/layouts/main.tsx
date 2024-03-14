@@ -8,9 +8,7 @@ function Main({ children }: PropsWithChildren) {
 			<header className="container m-auto">
 				<NavBar />
 			</header>
-			<main className="container m-auto bg-orange-100 min-h-[120vh] text-5xl flex items-center justify-center">
-				{children}
-			</main>
+			{children}
 			<Footer />
 		</>
 	);
