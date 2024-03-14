@@ -2,8 +2,7 @@ import { ReactNode, Suspense, lazy } from "react";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loading from "./components/loading";
 import Main from "./layouts/main";
-
-const ROOT_PATH = import.meta.env.VITE_ROOT_PATH || "/";
+import { ROOT_PATH } from "./utils/path";
 
 const Cart = lazy(() => import("./pages/cart"));
 const Checkout = lazy(() => import("./pages/checkout"));

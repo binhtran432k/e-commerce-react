@@ -1,4 +1,5 @@
 import type { LinkItem } from "@/definitions";
+import { getRealPath } from "@/utils/path";
 import { memo, useEffect, useState } from "react";
 
 interface FooterSection {
@@ -48,7 +49,7 @@ const Footer = memo(() => {
 });
 
 export async function loader() {
-	const res = await fetch("footer.json");
+	const res = await fetch(getRealPath("/footer.json"));
 	const data: FooterResponse = await res.json();
 	return data.columns;
 }
