@@ -42,7 +42,7 @@ function NavBarLink({ route }: { route: LinkItem }) {
 
 function NavBar() {
 	return (
-		<nav className="px-6 py-6 flex justify-between items-center">
+		<nav className="px-6 py-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
 			<ul className="flex gap-3 italic">
 				{routes.map((route) => (
 					<li key={route.label}>

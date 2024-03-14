@@ -13,7 +13,7 @@ interface FooterResponse {
 
 function FooterSection({ name, items }: { name: string; items: LinkItem[] }) {
 	return (
-		<div className="w-[20rem]">
+		<div className="w-[18rem]">
 			<h5 className="italic text-xl uppercase">{name}</h5>
 			<ul className="mt-4">
 				{items.map((item) => (
@@ -35,7 +35,7 @@ const Footer = memo(() => {
 	}, []);
 	return (
 		<footer className="bg-black text-white">
-			<div className="container m-auto px-4 py-16 flex justify-between">
+			<div className="container m-auto px-4 py-16 flex flex-wrap gap-6 justify-between">
 				{footerSections.map((section) => (
 					<FooterSection
 						key={section.name}
