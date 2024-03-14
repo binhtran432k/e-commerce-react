@@ -19,7 +19,7 @@ function FootBanner() {
 					{banners.map((banner) => (
 						<li
 							key={banner.title}
-							className="text-center w-[20rem] italic tracking-wide"
+							className="text-center w-[14rem] italic tracking-wide"
 						>
 							<h4 className="font-medium uppercase text-xl">{banner.title}</h4>
 							<p className="text-sm text-gray-400">{banner.description}</p>
@@ -45,11 +45,11 @@ function SubcribeBox() {
 					e.preventDefault();
 					alert("This function has not been implemented yet!");
 				}}
-				className="flex justify-end grow"
+				className="flex flex-col sm:flex-row justify-end grow"
 			>
 				<input
 					type="email"
-					className="p-4 border border-gray-400 max-w-[30rem] grow"
+					className="p-4 border border-gray-400 sm:max-w-[30rem] grow"
 					placeholder="Enter your email address"
 				/>
 				<button
