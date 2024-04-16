@@ -1,7 +1,9 @@
-import { ReactNode, Suspense, lazy } from "react";
+import { type ReactNode, Suspense, lazy } from "react";
+import { Provider } from "react-redux";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loading from "./components/loading";
 import Main from "./layouts/main";
+import store from "./store";
 import { ROOT_PATH } from "./utils/path";
 
 const Cart = lazy(() => import("./pages/cart"));
@@ -46,7 +48,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
+	);
 }
 
 export default App;

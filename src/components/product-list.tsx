@@ -1,15 +1,24 @@
 import type { ProductItem } from "@/definitions";
+import { useAppDispatch } from "@/hooks/store";
+import { popupActions } from "@/store/popup";
+import { getPriceText } from "@/utils/string";
 import { memo, useEffect, useState } from "react";
+import ProductPopup from "./product-popup";
 
 const Product = memo(({ product }: { product: ProductItem }) => {
+	const dispatch = useAppDispatch();
+
 	return (
-		<div className="text-center italic hover:cursor-pointer hover:opacity-75 transition-opacity">
+		<button
+			type="button"
+			className="text-center italic hover:opacity-75 transition-opacity"
+			onClick={() => dispatch(popupActions.show(product._id.$oid))}
+		>
 			<img src={product.img1} alt={product.name} />
 			<h4 className="font-medium mt-4 mb-1">{product.name}</h4>
-			<p className="text-sm text-gray-400">
-				{product.price.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")} VND
-			</p>
-		</div>
+			<p className="text-sm text-gray-400">{getPriceText(product.price)} VND</p>
+			<ProductPopup product={product} />
+		</button>
 	);
 });
 
