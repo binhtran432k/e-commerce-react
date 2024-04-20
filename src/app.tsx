@@ -2,6 +2,7 @@ import { type ReactNode, Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loading from "./components/loading";
+import Popup from "./components/popup";
 import Main from "./layouts/main";
 import store from "./store";
 import { ROOT_PATH } from "./utils/path";
@@ -51,6 +52,7 @@ function App() {
 	return (
 		<Provider store={store}>
 			<RouterProvider router={router} />
+			<Popup />
 		</Provider>
 	);
 }
