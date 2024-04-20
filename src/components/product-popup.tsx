@@ -4,13 +4,13 @@ import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 const ProductPopup = ({ product }: { product: ProductItem }) => {
 	return (
-		<div className="flex flex-wrap md:flex-nowrap w-full max-w-[800px] items-center justify-center gap-4">
+		<div className="flex flex-wrap md:flex-nowrap w-full max-w-[800px] items-start justify-center gap-4">
 			<img
 				src={product.img1}
 				alt={product.name}
 				width={400}
 				height={400}
-				className="shrink-0"
+				className="self-center shrink-0"
 			/>
 			<div className="flex flex-col items-start mb-4">
 				<div className="ms-4 my-4">
