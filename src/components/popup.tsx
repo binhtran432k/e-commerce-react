@@ -1,44 +1,55 @@
-import { useAppDispatch } from "@/hooks/store";
-import { popupActions } from "@/store/popup";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import { popupActions } from "@/store/popup-slice";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { type PropsWithChildren, useEffect } from "react";
+import clsx from "clsx";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import ProductPopup from "./product-popup";
 
 const popupElement = document.body;
 
-function Popup({
-	children,
-	isShow,
-	className,
-}: PropsWithChildren<{ isShow: boolean; className?: string }>) {
+function Popup() {
+	const popup = useAppSelector((state) => state.popup);
 	const dispatch = useAppDispatch();
-	useEffect(() => {
-		document.body.style.overflow = isShow ? "hidden" : "";
-	}, [isShow]);
 
-	return (
-		isShow &&
-		createPortal(
-			<div className="fixed top-0 w-full h-full z-50 flex items-center justify-center">
+	useEffect(() => {
+		document.body.style.overflow = popup.isShow ? "hidden" : "";
+	}, [popup.isShow]);
+
+	const element =
+		popup.type === "product" ? <ProductPopup product={popup.data} /> : null;
+
+	return createPortal(
+		<div
+			className={clsx(
+				"fixed flex top-0 w-full h-full z-50 items-center justify-center",
+				!element && "hidden",
+				popup.isShow ? "animate-fadeIn" : "animate-fadeOut",
+			)}
+		>
+			<button
+				type="button"
+				className="absolute bg-gray-900/60 w-full h-full hover:cursor-default"
+				onClick={() => dispatch(popupActions.hide())}
+			/>
+			<article
+				className={clsx(
+					"z-10 max-h-full overflow-auto contain m-auto flex gap-2 items-start justify-between p-4 bg-white",
+					!popup.isShow && "animate-moveUp",
+				)}
+			>
+				{element}
 				<button
 					type="button"
-					className="bg-gray-900/60 w-full h-full hover:cursor-default"
+					aria-label="close"
 					onClick={() => dispatch(popupActions.hide())}
-				/>
-				<article className="absolute flex max-h-full gap-2 overflow-auto justify-between m-4 p-4 bg-white">
-					<div className={className}>{children}</div>
-					<button
-						type="button"
-						aria-label="close"
-						onClick={() => dispatch(popupActions.hide())}
-						className="hover:opacity-50 self-start"
-					>
-						<XMarkIcon className="w-4" />
-					</button>
-				</article>
-			</div>,
-			popupElement,
-		)
+					className="hover:opacity-50 self-start"
+				>
+					<XMarkIcon className="w-4" />
+				</button>
+			</article>
+		</div>,
+		popupElement,
 	);
 }
 
