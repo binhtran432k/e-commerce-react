@@ -15,7 +15,7 @@ const Product = memo(({ product }: { product: ProductItem }) => {
 				dispatch(popupActions.show({ type: "product", data: product }))
 			}
 		>
-			<img src={product.img1} alt={product.name} />
+			<img src={product.img1} alt={product.name} width={250} height={250} />
 			<h4 className="font-medium mt-4 mb-1">{product.name}</h4>
 			<p className="text-sm text-gray-400">{getPriceText(product.price)} VND</p>
 		</button>
@@ -37,7 +37,7 @@ const ProductList = memo(() => {
 			</header>
 			<ul className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-2 gap-x-6">
 				{products.map((product) => (
-					<li key={product._id.$oid}>
+					<li key={product._id.$oid} className="m-auto">
 						<Product product={product} />
 					</li>
 				))}

@@ -34,7 +34,7 @@ const Category = memo(() => {
 			</header>
 			<div className="flex flex-col gap-6">
 				{categories.map(([id, categoryRow]) => (
-					<ul key={id} className="flex grow gap-6">
+					<ul key={id} className="flex flex-wrap sm:flex-nowrap grow gap-6">
 						{categoryRow.map((category) => (
 							<li
 								key={category.label}
