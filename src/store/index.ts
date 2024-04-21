@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import popupReducer from "./popup-slice";
+import shopReducer from "./shop-slice";
 
 const store = configureStore({
 	reducer: {
 		popup: popupReducer,
+		shop: shopReducer,
 	},
 });
 

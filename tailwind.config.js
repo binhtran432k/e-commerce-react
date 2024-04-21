@@ -4,6 +4,10 @@ export default {
 	theme: {
 		extend: {
 			keyframes: {
+				appear: {
+					"0%": { opacity: 0, transform: "scale(.3,.3)" },
+					"100%": { opacity: 1, transform: "scale(1,1)" },
+				},
 				fadeIn: {
 					"0%": { opacity: 0, display: "none" },
 					"100%": { opacity: 1 },
@@ -18,9 +22,10 @@ export default {
 				},
 			},
 			animation: {
-				fadeIn: "fadeIn 300ms forwards",
-				fadeOut: "fadeOut 300ms forwards",
-				moveUp: "moveUp 300ms forwards",
+				appear: "appear .3s forwards",
+				fadeIn: "fadeIn .3s forwards",
+				fadeOut: "fadeOut .3s forwards",
+				moveUp: "moveUp .3s forwards",
 			},
 		},
 	},
