@@ -1,57 +1,93 @@
-import type { ProductItem } from "@/definitions";
-import { useAppDispatch } from "@/hooks/store";
-import { popupActions } from "@/store/popup-slice";
-import { getPriceText } from "@/utils/string";
+import type { PageResponse, ProductItem } from "@/definitions";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import { getProductPage } from "@/services/product-service";
+import { shopActions } from "@/store/shop-slice";
 import { memo, useEffect, useState } from "react";
+import Pagination from "./pagination";
+import Product from "./product";
 
-const Product = memo(({ product }: { product: ProductItem }) => {
-	const dispatch = useAppDispatch();
-
-	return (
-		<button
-			type="button"
-			className="text-center italic hover:opacity-75 transition-opacity"
-			onClick={() =>
-				dispatch(popupActions.show({ type: "product", data: product }))
-			}
-		>
-			<img src={product.img1} alt={product.name} width={250} height={250} />
-			<h4 className="font-medium mt-4 mb-1">{product.name}</h4>
-			<p className="text-sm text-gray-400">{getPriceText(product.price)} VND</p>
-		</button>
-	);
-});
+const PRODUCT_PER_PAGE = 3;
 
 const ProductList = memo(() => {
-	const [products, setProducts] = useState<ProductItem[]>([]);
+	const dispatch = useAppDispatch();
+	const [productPage, setProductPage] = useState<
+		PageResponse<ProductItem> | undefined
+	>();
+	const [nextPage, setNextPage] = useState<number | undefined>();
+	const [prevPage, setPrevPage] = useState<number | undefined>();
+	const shop = useAppSelector((state) => state.shop);
 
 	useEffect(() => {
-		loader().then((items) => setProducts(items));
-	}, []);
+		setProductPage(undefined);
+		setNextPage(undefined);
+		setPrevPage(undefined);
+		const timeoutId = setTimeout(() => {
+			getProductPage(
+				{
+					category: shop.category,
+					search: shop.search,
+					sortBy: shop.sortBy,
+					page: shop.page,
+				},
+				PRODUCT_PER_PAGE,
+			).then((page) => {
+				setProductPage(page);
+				const pageNum = shop.page ?? 1;
+				setPrevPage(
+					pageNum > page.totalPage
+						? page.totalPage
+						: pageNum > 1
+						  ? page.page - 1
+						  : undefined,
+				);
+				setNextPage(
+					pageNum < 1
+						? 1
+						: pageNum < page.totalPage
+						  ? page.page + 1
+						  : undefined,
+				);
+			});
+		}, 300);
+		return () => clearTimeout(timeoutId);
+	}, [shop]);
 
 	return (
-		<article className="container m-auto my-12 px-4">
-			<header className="mb-6 uppercase italic tracking-wide font-medium">
-				<h2 className="text-gray-300">Made The Hard Way</h2>
-				<h3 className="text-xl">Top Trending Products</h3>
-			</header>
-			<ul className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-2 gap-x-6">
-				{products.map((product) => (
+		<div className="flex flex-col gap-12 items-end">
+			<ul className="flex flex-wrap sm:grid md:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-x-6">
+				{productPage?.items.map((product) => (
 					<li key={product._id.$oid} className="m-auto">
 						<Product product={product} />
 					</li>
 				))}
 			</ul>
-		</article>
+			<div className="flex flex-col items-end gap-2">
+				<Pagination
+					page={shop.page ?? 1}
+					onNext={
+						nextPage ? () => dispatch(shopActions.setPage(nextPage)) : undefined
+					}
+					onPrev={
+						prevPage ? () => dispatch(shopActions.setPage(prevPage)) : undefined
+					}
+				/>
+				<p className="text-gray-400 italic">
+					Showing{" "}
+					{productPage
+						? Math.min(
+								(productPage.page - 1) * PRODUCT_PER_PAGE + 1,
+								productPage.total,
+						  )
+						: 1}
+					-
+					{productPage
+						? Math.min(productPage.page * PRODUCT_PER_PAGE, productPage.total)
+						: PRODUCT_PER_PAGE}{" "}
+					of {productPage?.total ?? PRODUCT_PER_PAGE} results
+				</p>
+			</div>
+		</div>
 	);
 });
-
-export async function loader(): Promise<ProductItem[]> {
-	return fetch(
-		"https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74",
-	)
-		.then((res) => res.json())
-		.then((data) => data.slice(0, 8));
-}
 
 export default ProductList;

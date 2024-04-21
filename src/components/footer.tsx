@@ -13,7 +13,7 @@ interface FooterResponse {
 
 function FooterSection({ name, items }: { name: string; items: LinkItem[] }) {
 	return (
-		<div className="w-[18rem]">
+		<div className="m-auto sm:m-0 w-[18rem] text-center sm:text-left">
 			<h5 className="italic text-xl uppercase">{name}</h5>
 			<ul className="mt-4">
 				{items.map((item) => (

@@ -42,7 +42,7 @@ function NavBarLink({ route }: { route: LinkItem }) {
 
 function NavBar() {
 	return (
-		<nav className="px-6 py-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
+		<nav className="px-6 py-6 font-medium flex flex-col sm:flex-row gap-4 justify-between items-center">
 			<ul className="flex order-1 sm:order-none gap-16 sm:gap-3 italic">
 				{routes.map((route) => (
 					<li key={route.label}>
@@ -51,7 +51,7 @@ function NavBar() {
 				))}
 			</ul>
 			<Link to="/">
-				<h1 className="hover:text-gray-400 italic text-3xl uppercase">
+				<h1 className="hover:text-gray-400 italic text-2xl uppercase">
 					Boutique
 				</h1>
 			</Link>

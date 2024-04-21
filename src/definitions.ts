@@ -16,3 +16,31 @@ export interface ProductItem {
 	img3: string;
 	img4: string;
 }
+
+export interface Item {
+	label: string;
+	name?: string;
+}
+
+export interface CategoryItem {
+	label: string;
+	name?: string;
+	items?: CategoryItem[];
+}
+
+export interface PageRequest {
+	page?: number;
+}
+
+export interface ProductPage extends PageRequest {
+	category?: string;
+	sortBy?: string;
+	search?: string;
+}
+
+export interface PageResponse<T> {
+	totalPage: number;
+	total: number;
+	page: number;
+	items: T[];
+}

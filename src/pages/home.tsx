@@ -1,15 +1,15 @@
-import Banner from "@/components/banner";
 import Category from "@/components/category";
+import LandingBanner from "@/components/landing-banner";
 import OtherInformation from "@/components/other-information";
-import ProductList from "@/components/product-list";
+import Trending from "@/components/trending";
 import { memo } from "react";
 
 const Home = memo(() => {
 	return (
 		<main>
-			<Banner />
+			<LandingBanner />
 			<Category />
-			<ProductList />
+			<Trending />
 			<OtherInformation />
 		</main>
 	);
