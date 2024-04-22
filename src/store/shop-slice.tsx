@@ -15,6 +15,7 @@ const shopSlice = createSlice({
 	reducers: {
 		setCategory: (state, { payload }: PayloadAction<ShopState["category"]>) => {
 			state.category = payload;
+			state.page = undefined;
 		},
 		setSortBy: (state, { payload }: PayloadAction<ShopState["sortBy"]>) => {
 			state.sortBy = payload;

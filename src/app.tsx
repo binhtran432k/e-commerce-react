@@ -10,11 +10,11 @@ import { ROOT_PATH } from "./utils/path";
 const Cart = lazy(() => import("./pages/cart"));
 const Checkout = lazy(() => import("./pages/checkout"));
 const Detail = lazy(() => import("./pages/detail"));
-const Home = lazy(() => import("./pages/home"));
+const Home = lazy(() => import("./pages/home/home"));
 const Login = lazy(() => import("./pages/login"));
 const NotFound = lazy(() => import("./pages/not-found"));
 const Register = lazy(() => import("./pages/register"));
-const Shop = lazy(() => import("./pages/shop"));
+const Shop = lazy(() => import("./pages/shop/shop"));
 
 function wrapLoading(child: ReactNode) {
 	return <Suspense fallback={<Loading />}>{child}</Suspense>;

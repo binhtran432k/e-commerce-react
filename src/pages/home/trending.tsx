@@ -1,7 +1,7 @@
+import Product from "@/components/product";
 import type { ProductItem } from "@/definitions";
 import { getTrendings } from "@/services/product-service";
 import { memo, useEffect, useState } from "react";
-import Product from "./product";
 
 const Trending = memo(() => {
 	const [products, setProducts] = useState<ProductItem[]>([]);

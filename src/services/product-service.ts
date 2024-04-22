@@ -1,4 +1,5 @@
 import type { PageResponse, ProductItem, ProductPage } from "@/definitions";
+import { fuzzySearch } from "@/utils/search";
 
 export async function getAllProducts(): Promise<ProductItem[]> {
 	return fetch(
@@ -14,26 +15,35 @@ export async function getProductPage(
 	page: ProductPage,
 	count = 10,
 ): Promise<PageResponse<ProductItem>> {
+	const compareFunc = (() => {
+		if (page.sortBy === "asc.name")
+			return (a: ProductItem, b: ProductItem) =>
+				a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+		if (page.sortBy === "desc.name")
+			return (a: ProductItem, b: ProductItem) =>
+				a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1;
+		if (page.sortBy === "asc.price")
+			return (a: ProductItem, b: ProductItem) =>
+				Number(a.price) - Number(b.price);
+		if (page.sortBy === "desc.price")
+			return (a: ProductItem, b: ProductItem) =>
+				Number(b.price) - Number(a.price);
+		return () => 0;
+	})();
 	return getAllProducts()
 		.then((data) =>
 			data
 				.filter((x) => (page.category ? x.category === page.category : true))
 				.filter((x) =>
 					page.search
-						? x.name.toLowerCase().includes(page.search.toLowerCase())
+						? fuzzySearch(
+								page.search.toLowerCase(),
+								x.name.toLowerCase(),
+								1,
+						  ).next().value
 						: true,
 				)
-				.sort((a, b) => {
-					if (page.sortBy === "asc.name")
-						return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
-					if (page.sortBy === "desc.name")
-						return a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1;
-					if (page.sortBy === "asc.price")
-						return Number(a.price) - Number(b.price);
-					if (page.sortBy === "desc.price")
-						return Number(b.price) - Number(a.price);
-					return 0;
-				}),
+				.sort(compareFunc),
 		)
 		.then((data) => {
 			const totalPage = Math.ceil(data.length / count);
