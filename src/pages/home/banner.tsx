@@ -2,7 +2,7 @@ import { getRealPath } from "@/utils/path";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 
-const LandingBanner = memo(() => {
+const Banner = memo(() => {
 	return (
 		<article className="lg:container lg:px-4 m-auto">
 			<div
@@ -28,4 +28,4 @@ const LandingBanner = memo(() => {
 	);
 });
 
-export default LandingBanner;
+export default Banner;

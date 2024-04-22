@@ -1,14 +1,14 @@
 import Banner from "@/components/banner";
-import CategorySidebar from "@/components/category-sidebar";
 import Dropdown from "@/components/dropdown";
 import Input from "@/components/input";
-import ProductList from "@/components/product-list";
 import type { Item } from "@/definitions";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import { getAllSortByItems } from "@/services/sort-by-service";
 import { shopActions } from "@/store/shop-slice";
 import { memo, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import ProductList from "./product-list";
+import Sidebar from "./sidebar";
 
 const Shop = memo(() => {
 	const [sortByItems, setSortByItems] = useState<Item[]>([]);
@@ -59,7 +59,7 @@ const Shop = memo(() => {
 		<main>
 			<Banner title="Shop" />
 			<div className="container m-auto p-4 my-4 gap-6 flex-col sm:flex-row flex">
-				<CategorySidebar className="sm:max-w-[240px] w-full grow" />
+				<Sidebar className="sm:max-w-[240px] w-full grow" />
 				<div className="w-full">
 					<div className="flex flex-col gap-4 sm:flex-row justify-between">
 						<Input

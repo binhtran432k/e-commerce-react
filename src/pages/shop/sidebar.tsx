@@ -63,7 +63,7 @@ function CategoryPrimaryList({ category }: { category: CategoryItem }) {
 	);
 }
 
-const CategorySidebar = memo(({ className }: { className?: string }) => {
+const Sidebar = memo(({ className }: { className?: string }) => {
 	const [categories, setCategories] = useState<CategoryItem[]>([]);
 
 	useEffect(() => {
@@ -84,4 +84,4 @@ const CategorySidebar = memo(({ className }: { className?: string }) => {
 	);
 });
 
-export default CategorySidebar;
+export default Sidebar;
